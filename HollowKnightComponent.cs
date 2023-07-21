@@ -1191,7 +1191,7 @@ namespace LiveSplit.HollowKnight {
                 case SplitName.Menu:
                     shouldSplit = currScene == "Menu_Title" && nextScene != currScene;
                     // this properly sets and resets menuSplitHelper, kinda jank but if it works 🤷
-                    menuSplitHelper = !shouldSplit && !((mem.UIState() is UIState.PLAYING or UIState.PAUSED) && !Model.CurrentState.IsGameTimePaused);
+                    menuSplitHelper = !shouldSplit && mem.UIState() != UIState.PLAYING;
                     break;
 
                 // menuSplitHelper is set to true in case SplitName.Menu, and is only set back to false once it splits
