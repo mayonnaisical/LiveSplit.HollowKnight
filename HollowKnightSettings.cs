@@ -12,6 +12,7 @@ namespace LiveSplit.HollowKnight {
         private bool isLoading;
         private List<string> availableSplits = new List<string>();
         private List<string> availableSplitsAlphaSorted = new List<string>();
+        private Label startTriggerSeparator = new Label();
 
         public HollowKnightSettings() {
             isLoading = true;
@@ -55,8 +56,25 @@ namespace LiveSplit.HollowKnight {
                 flowMain.Controls.Add(setting);
             }
 
+            AddStartTriggerSeparator();
+
             isLoading = false;
             this.flowMain.ResumeLayout(true);
+        }
+
+        private void AddStartTriggerSeparator() {
+            // horizontal rule (https://stackoverflow.com/a/3296161)
+            this.startTriggerSeparator.AccessibleName = "Start trigger separator";
+            this.startTriggerSeparator.Text = string.Empty;
+            this.startTriggerSeparator.BorderStyle = BorderStyle.Fixed3D;
+            this.startTriggerSeparator.AutoSize = false;
+            this.startTriggerSeparator.Height = 2;
+            this.flowMain.Controls.Add(this.startTriggerSeparator);
+            PositionStartTriggerSeparator();
+        }
+
+        private void PositionStartTriggerSeparator() {
+            this.flowMain.Controls.SetChildIndex(this.startTriggerSeparator, 2);
         }
 
         private void AddHandlers(HollowKnightSplitSettings setting) {
@@ -144,6 +162,7 @@ namespace LiveSplit.HollowKnight {
                     }
                 }
             }
+            PositionStartTriggerSeparator();
         }
         public XmlNode UpdateSettings(XmlDocument document) {
 
@@ -286,6 +305,7 @@ namespace LiveSplit.HollowKnight {
                     destination.Invalidate();
                 }
             }
+            PositionStartTriggerSeparator();
         }
 
         private void cboStartTriggerName_SelectedIndexChanged(object sender, EventArgs e) {
